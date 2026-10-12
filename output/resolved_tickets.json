@@ -1,0 +1,334 @@
+{
+  "generated_from": "output/audit_trail.json + data/campus_customs_new.db",
+  "desk_date": "2026-08-31",
+  "starting_checking_balance": 3400.0,
+  "ending_checking_balance": 160.0,
+  "tickets": [
+    {
+      "id": 101,
+      "type": "customer_order",
+      "requester": "Tauhid Zaman",
+      "subject": "Bulldog tee",
+      "final_status": "resolved",
+      "boss_left_status_as": "waiting_on_approval",
+      "outcome": "Tee size S is out of stock (short 1) and the only apparel vendor, Bulldog Print Co, was on hold over overdue invoice 501. Accounting queued the $840 invoice payment; a human approved it, so the invoice is paid and the vendor hold is lifted. An unsent update was drafted for Tauhid Zaman with no delivery date promised.",
+      "run": {
+        "run_id": "c7466eb70d3c",
+        "started_at": "2026-10-12T06:58:55+00:00",
+        "finished_at": "2026-10-12T06:59:00+00:00",
+        "seconds": 5.0,
+        "delegations": 3,
+        "total_tokens": 47000
+      },
+      "agent_contributions": [
+        {
+          "agent": "Boss",
+          "delegated_to": [
+            {
+              "to": "Inventory",
+              "reason": "The order cannot be filled from stock; Inventory owns sourcing and replenishment options."
+            },
+            {
+              "to": "Accounting",
+              "reason": "Accounting owns invoice payment requests and must balance the vendor hold against near-term rent."
+            },
+            {
+              "to": "Customer Service",
+              "reason": "Customer Service owns an honest, unsent status draft for the requester."
+            }
+          ],
+          "tools_used": [
+            "get_ticket",
+            "check_stock_and_pricing",
+            "get_cash_position",
+            "list_pending_approvals",
+            "get_invoice_vendor_status",
+            "update_ticket"
+          ],
+          "summary": "Ticket #101 is waiting on human approval of the overdue vendor invoice payment; the tee is out of stock, and no delivery date is promised."
+        },
+        {
+          "agent": "Inventory",
+          "delegated_to": [],
+          "tools_used": [
+            "check_stock_and_pricing",
+            "list_vendors_with_status",
+            "get_invoice_vendor_status",
+            "get_ticket"
+          ],
+          "summary": "Ticket #101 needs 1 CC-TEE-WHITE in size S; none are on hand, so the shortfall is 1. Bulldog Print Co is the matching apparel reprint vendor but cannot ship while invoice #501 remains open; no PO can be drafted while they are on hold."
+        },
+        {
+          "agent": "Accounting",
+          "delegated_to": [],
+          "tools_used": [
+            "get_cash_position",
+            "get_invoice_vendor_status",
+            "list_pending_approvals",
+            "get_ticket",
+            "get_rent_due_and_cash",
+            "request_payment"
+          ],
+          "summary": "Queued payment request #1 for invoice #501, $840.00, for human approval. It is pending, not paid; if approved, checking falls from $3,400.00 to $2,560.00, leaving $160.00 after the $2,400.00 Chapel Street rent due 2026-09-02."
+        },
+        {
+          "agent": "Customer Service",
+          "delegated_to": [],
+          "tools_used": [
+            "get_ticket",
+            "check_stock_and_pricing",
+            "draft_customer_message"
+          ],
+          "summary": "Saved a customer reply draft for Tauhid Zaman; it was not sent."
+        }
+      ],
+      "agents_not_used": [
+        "Facilities"
+      ],
+      "human_approvals": [
+        {
+          "payment_request_id": 1,
+          "kind": "invoice",
+          "ref_id": 501,
+          "amount": 840.0,
+          "prepared_by": "Accounting",
+          "decision": "approved",
+          "decided_by": "Ansit Kaushal",
+          "payment_id": 1,
+          "reason": "Ticket #101: pay the 3-day-overdue Bulldog Print Co invoice for the CC-TEE-WHITE S rush reprint so the vendor can release it; preserve $2,400 Chapel Street rent due 2026-09-02."
+        }
+      ],
+      "cash_change": -840.0,
+      "message_drafts": [
+        {
+          "id": 1,
+          "to": "Tauhid Zaman",
+          "subject": "Update on your Bulldog tee",
+          "status": "draft"
+        }
+      ],
+      "status_history": [
+        {
+          "from_status": "open",
+          "to_status": "waiting_on_approval",
+          "by": "Boss"
+        },
+        {
+          "from_status": "waiting_on_approval",
+          "to_status": "resolved",
+          "by": "Dashboard"
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "type": "rent_notice",
+      "requester": "Elm City Properties",
+      "subject": "Rent due",
+      "final_status": "resolved",
+      "boss_left_status_as": "waiting_on_approval",
+      "outcome": "Rent of $2,400 for lease 1 (Chapel Street shop) was due 2026-09-02. Facilities owned it, Accounting queued the rent payment, and a human approved it; the lease's next due date advanced to 2026-10-02. An unsent acknowledgment was drafted for Elm City Properties.",
+      "run": {
+        "run_id": "183685920923",
+        "started_at": "2026-10-12T06:59:22+00:00",
+        "finished_at": "2026-10-12T06:59:47+00:00",
+        "seconds": 25.0,
+        "delegations": 3,
+        "total_tokens": 33708
+      },
+      "agent_contributions": [
+        {
+          "agent": "Boss",
+          "delegated_to": [
+            {
+              "to": "Facilities",
+              "reason": "This is a rent notice tied to the Chapel Street lease, so Facilities owns the lease and rent workflow."
+            }
+          ],
+          "tools_used": [
+            "get_ticket",
+            "get_rent_due_and_cash",
+            "get_cash_position",
+            "list_pending_approvals",
+            "update_ticket"
+          ],
+          "summary": "Ticket #102 is waiting on human approval for the rent payment. Payment request #2 for $2,400 is queued; the landlord reply is drafted and unsent."
+        },
+        {
+          "agent": "Accounting",
+          "delegated_to": [],
+          "tools_used": [
+            "get_cash_position",
+            "get_rent_due_and_cash",
+            "list_pending_approvals",
+            "get_ticket",
+            "request_payment"
+          ],
+          "summary": "Queued the lease 1 rent payment request for approval; it remains pending and has not been paid. If approved, checking would go from $2,560.00 to $160.00."
+        },
+        {
+          "agent": "Facilities",
+          "delegated_to": [
+            {
+              "to": "Accounting",
+              "reason": "Accounting owns queuing rent payment requests for human approval."
+            },
+            {
+              "to": "Customer Service",
+              "reason": "Customer Service drafts external replies; Facilities must not contact the landlord directly."
+            }
+          ],
+          "tools_used": [
+            "get_ticket",
+            "get_rent_due_and_cash",
+            "get_cash_position"
+          ],
+          "summary": "Lease 1 rent is $2,400 due 2026-09-02, two days after desk date 2026-08-31. Payment request #2 is queued and pending human approval; no payment was made. Landlord reply draft #2 is prepared and unsent."
+        },
+        {
+          "agent": "Customer Service",
+          "delegated_to": [],
+          "tools_used": [
+            "get_ticket",
+            "draft_customer_message"
+          ],
+          "summary": "Prepared a brief landlord reply acknowledging Elm City Properties\u2019 rent reminder; it does not promise payment and was not sent."
+        }
+      ],
+      "agents_not_used": [
+        "Inventory"
+      ],
+      "human_approvals": [
+        {
+          "payment_request_id": 2,
+          "kind": "rent",
+          "ref_id": 1,
+          "amount": 2400.0,
+          "prepared_by": "Accounting",
+          "decision": "approved",
+          "decided_by": "Ansit Kaushal",
+          "payment_id": 2,
+          "reason": "Ticket #102 rent notice for Elm City Properties, Chapel Street shop; rent due 2026-09-02."
+        }
+      ],
+      "cash_change": -2400.0,
+      "message_drafts": [
+        {
+          "id": 2,
+          "to": "Elm City Properties",
+          "subject": "Re: Rent due",
+          "status": "draft"
+        }
+      ],
+      "status_history": [
+        {
+          "from_status": "open",
+          "to_status": "waiting_on_approval",
+          "by": "Boss"
+        },
+        {
+          "from_status": "waiting_on_approval",
+          "to_status": "resolved",
+          "by": "Dashboard"
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "type": "price_override",
+      "requester": "Yale AI Club",
+      "subject": "Bulk hoodie discount",
+      "final_status": "resolved",
+      "boss_left_status_as": "in_progress",
+      "outcome": "Only 8 of 20 size-M hoodies are on hand (short 12). Margin is $36/unit (break-even 62.1% off), but the club didn't name a discount, so no quote was proposed and no restock PO was drafted. An unsent reply asks the Yale AI Club for their target discount. No cash moved.",
+      "run": {
+        "run_id": "8be236ad2d1d",
+        "started_at": "2026-10-12T07:00:07+00:00",
+        "finished_at": "2026-10-12T07:00:38+00:00",
+        "seconds": 31.0,
+        "delegations": 3,
+        "total_tokens": 33767
+      },
+      "agent_contributions": [
+        {
+          "agent": "Boss",
+          "delegated_to": [
+            {
+              "to": "Inventory",
+              "reason": "Ticket requests a 20-unit hoodie order; Inventory owns SKU availability and fulfillment constraints."
+            },
+            {
+              "to": "Accounting",
+              "reason": "Accounting owns margin and discount review for a bulk price override."
+            },
+            {
+              "to": "Customer Service",
+              "reason": "Customer Service owns the customer-facing draft and must clarify the missing discount request without promising blocked fulfillment."
+            }
+          ],
+          "tools_used": [
+            "get_ticket",
+            "list_pending_approvals",
+            "update_ticket"
+          ],
+          "summary": "Ticket #103 is in progress pending the customer\u2019s discount target. No quote or replenishment PO was approved or queued; Customer Service draft #3 is saved but not sent."
+        },
+        {
+          "agent": "Inventory",
+          "delegated_to": [],
+          "tools_used": [
+            "check_stock_and_pricing",
+            "list_vendors_with_status",
+            "get_ticket"
+          ],
+          "summary": "CC-HOOD-NAVY, size M: 8 on hand in Aisle A; short 12 against the requested 20, so the order cannot be filled in full from current stock. Apparel reprint vendor Bulldog Print Co is not on hold and has a 5-day lead; no delivery date is promised and no PO was drafted."
+        },
+        {
+          "agent": "Accounting",
+          "delegated_to": [],
+          "tools_used": [
+            "get_ticket",
+            "get_cash_position",
+            "check_stock_and_pricing"
+          ],
+          "summary": "Ticket #103 does not specify a discount percentage, so I did not propose a quote. Verified pricing for CC-HOOD-NAVY size M is $58.00 list, $22.00 unit cost, $36.00 unit margin, and 62.1% break-even discount; any discounted quote would need human approval."
+        },
+        {
+          "agent": "Customer Service",
+          "delegated_to": [],
+          "tools_used": [
+            "get_ticket",
+            "check_stock_and_pricing",
+            "draft_customer_message"
+          ],
+          "summary": "Saved a customer reply draft for Yale AI Club with the requested stock and replenishment details, and asked what discount percentage or target unit price they want. No discounted quote was presented as approved."
+        }
+      ],
+      "agents_not_used": [
+        "Facilities"
+      ],
+      "human_approvals": [],
+      "cash_change": 0,
+      "message_drafts": [
+        {
+          "id": 3,
+          "to": "Yale AI Club",
+          "subject": "Re: Bulk hoodie discount",
+          "status": "draft"
+        }
+      ],
+      "status_history": [
+        {
+          "from_status": "open",
+          "to_status": "in_progress",
+          "by": "Boss"
+        },
+        {
+          "from_status": "in_progress",
+          "to_status": "resolved",
+          "by": "Dashboard"
+        }
+      ]
+    }
+  ]
+}

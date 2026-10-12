@@ -1,0 +1,28 @@
+# --- Secrets: never commit ---
+.env
+.env.*
+!.env.example
+
+# --- Python ---
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# --- Node / frontend ---
+node_modules/
+frontend/dist/
+frontend/.vite/
+*.local
+npm-debug.log*
+
+# --- SQLite sidecar files (the .db files themselves ARE committed) ---
+*.db-wal
+*.db-shm
+*.db-journal
+
+# --- Temp / OS ---
+output/*.tmp
+output/.chrome-cdp-tmp/
+.DS_Store
+*.log

@@ -1,0 +1,96 @@
+{
+  "server": "campus-customs",
+  "config": ".mcp.json (project root)",
+  "database": "data/campus_customs_new.db",
+  "tests": [
+    {
+      "prompt": "Use the campus-customs MCP to check invoice 501's vendor status",
+      "tool": "mcp__campus-customs__get_invoice_vendor_status",
+      "arguments": {
+        "invoice_id": 501
+      },
+      "output": {
+        "today": "2026-08-31",
+        "invoice_id": 501,
+        "description": "Rush reprint CC-TEE-WHITE S",
+        "amount": 840,
+        "due_date": "2026-08-28",
+        "status": "open",
+        "is_overdue": true,
+        "days_overdue": 3,
+        "vendor_id": 1,
+        "vendor_name": "Bulldog Print Co",
+        "vendor_specialty": "apparel reprint",
+        "vendor_lead_days": 5,
+        "vendor_on_hold": true,
+        "vendor_open_invoices": [
+          {
+            "id": 501,
+            "amount": 840,
+            "due_date": "2026-08-28"
+          }
+        ]
+      },
+      "db_check": "SELECT on invoices JOIN vendors WHERE id=501 -> 501|vendor 1|840.0|2026-08-28|open|Rush reprint CC-TEE-WHITE S|Bulldog Print Co|apparel reprint|5; desk.date_today=2026-08-31",
+      "matches_db": true
+    },
+    {
+      "prompt": "Use the campus-customs MCP to check rent due and cash for lease 1",
+      "tool": "mcp__campus-customs__get_rent_due_and_cash",
+      "arguments": {
+        "lease_id": 1
+      },
+      "output": {
+        "today": "2026-08-31",
+        "lease_id": 1,
+        "space_name": "Chapel Street shop",
+        "landlord": "Elm City Properties",
+        "monthly_rent": 2400,
+        "next_due": "2026-09-02",
+        "days_until_due": 2,
+        "cash_accounts": [
+          {
+            "name": "checking",
+            "balance": 3400,
+            "date": "2026-08-31"
+          }
+        ],
+        "total_cash": 3400,
+        "cash_covers_rent": true,
+        "cash_after_rent": 1000
+      },
+      "db_check": "SELECT leases WHERE id=1 -> Chapel Street shop|Elm City Properties|2400.0|2026-09-02; cash_accounts -> checking|3400.0|2026-08-31; desk.date_today=2026-08-31",
+      "matches_db": true
+    },
+    {
+      "prompt": "Use the campus-customs MCP to check stock and pricing for CC-HOOD-NAVY size M, qty 20",
+      "tool": "mcp__campus-customs__check_stock_and_pricing",
+      "arguments": {
+        "sku": "CC-HOOD-NAVY",
+        "size": "M",
+        "qty_requested": 20
+      },
+      "output": {
+        "sku": "CC-HOOD-NAVY",
+        "name": "Basic Hoodie Big Yale",
+        "size": "M",
+        "location": "Aisle A",
+        "qty_on_hand": 8,
+        "qty_requested": 20,
+        "can_fill_from_stock": false,
+        "shortfall": 12,
+        "unit_cost": 22,
+        "list_price": 58,
+        "unit_margin": 36,
+        "break_even_discount_pct": 62.1
+      },
+      "db_check": "SELECT inventory WHERE sku='CC-HOOD-NAVY' AND size='M' -> Basic Hoodie Big Yale|M|8|Aisle A; pricing -> unit_cost 22.0, list_price 58.0",
+      "matches_db": true
+    }
+  ],
+  "summary": {
+    "tools_tested": 3,
+    "all_match_db": true,
+    "db_modified": false
+  }
+}
